@@ -1,0 +1,153 @@
+<pre class="line-numbers language-markup" data-codetype="php" title="Script" style="color: rgb(169, 183, 198); background: rgb(40, 43, 46); display: block; overflow-x: auto; padding: 0.5em;">
+
+<pre class="line-numbers language-markup" data-codetype="php" title="Script" style="color: rgb(169, 183, 198); background: rgb(40, 43, 46); display: block; overflow-x: auto; padding: 0.5em;">
+    <br><br><span class="hljs-comment" style="color: grey;">// ignore_for_file: prefer_const_constructors_in_immutables, use_key_in_widget_constructors, prefer_const_constructors, non_constant_identifier_names</span>
+
+    <span class="hljs-keyword" style="color: rgb(204, 120, 50);">import</span> <span class="hljs-symbol" style="color: rgb(104, 151, 187);">'package</span>:flutter/material.dart';
+    <span class="hljs-keyword" style="color: rgb(204, 120, 50);">import</span> <span class="hljs-symbol" style="color: rgb(104, 151, 187);">'database</span>/db_helper.dart';
+    <span class="hljs-keyword" style="color: rgb(204, 120, 50);">import</span> <span class="hljs-symbol" style="color: rgb(104, 151, 187);">'model</span>/kontak.dart';
+    
+    
+    <span class="hljs-class"><span class="hljs-keyword" style="color: rgb(204, 120, 50);">class</span> <span class="hljs-title" style="color: rgb(255, 198, 109);">FormKontak</span> <span class="hljs-keyword" style="color: rgb(204, 120, 50);">extends</span> <span class="hljs-title" style="color: rgb(255, 198, 109);">StatefulWidget</span> </span>{
+        <span class="hljs-keyword" style="color: rgb(204, 120, 50);">final</span> <span class="hljs-type" style="color: rgb(255, 198, 109);">Kontak</span>? kontak;
+    
+        <span class="hljs-type" style="color: rgb(255, 198, 109);">FormKontak</span>({<span class="hljs-keyword" style="color: rgb(204, 120, 50);">this</span>.kontak});
+    
+        <span class="hljs-meta" style="color: rgb(187, 181, 41);">@override</span>
+        _FormKontakState createState() =&gt; _FormKontakState();
+    }
+    
+    <span class="hljs-class"><span class="hljs-keyword" style="color: rgb(204, 120, 50);">class</span> <span class="hljs-title" style="color: rgb(255, 198, 109);">_FormKontakState</span> <span class="hljs-keyword" style="color: rgb(204, 120, 50);">extends</span> <span class="hljs-title" style="color: rgb(255, 198, 109);">State&lt;FormKontak&gt;</span> </span>{
+        <span class="hljs-type" style="color: rgb(255, 198, 109);">DbHelper</span> db = <span class="hljs-type" style="color: rgb(255, 198, 109);">DbHelper</span>();
+    
+        <span class="hljs-type" style="color: rgb(255, 198, 109);">TextEditingController</span>? name;
+        <span class="hljs-type" style="color: rgb(255, 198, 109);">TextEditingController</span>? lastName;
+        <span class="hljs-type" style="color: rgb(255, 198, 109);">TextEditingController</span>? mobileNo;
+        <span class="hljs-type" style="color: rgb(255, 198, 109);">TextEditingController</span>? email;
+        <span class="hljs-type" style="color: rgb(255, 198, 109);">TextEditingController</span>? company;
+    
+        <span class="hljs-meta" style="color: rgb(187, 181, 41);">@override</span>
+        void initState() {
+        name = <span class="hljs-type" style="color: rgb(255, 198, 109);">TextEditingController</span>(
+            text: widget.kontak == <span class="hljs-literal" style="color: rgb(104, 151, 187);">null</span> ? '' : widget.kontak!.name);
+    
+        mobileNo = <span class="hljs-type" style="color: rgb(255, 198, 109);">TextEditingController</span>(
+            text: widget.kontak == <span class="hljs-literal" style="color: rgb(104, 151, 187);">null</span> ? '' : widget.kontak!.mobileNo);
+    
+        email = <span class="hljs-type" style="color: rgb(255, 198, 109);">TextEditingController</span>(
+            text: widget.kontak == <span class="hljs-literal" style="color: rgb(104, 151, 187);">null</span> ? '' : widget.kontak!.email);
+    
+        company = <span class="hljs-type" style="color: rgb(255, 198, 109);">TextEditingController</span>(
+            text: widget.kontak == <span class="hljs-literal" style="color: rgb(104, 151, 187);">null</span> ? '' : widget.kontak!.company);
+            
+        <span class="hljs-keyword" style="color: rgb(204, 120, 50);">super</span>.initState();
+        }
+    
+        <span class="hljs-meta" style="color: rgb(187, 181, 41);">@override</span>
+        <span class="hljs-type" style="color: rgb(255, 198, 109);">Widget</span> build(<span class="hljs-type" style="color: rgb(255, 198, 109);">BuildContext</span> context) {
+        <span class="hljs-keyword" style="color: rgb(204, 120, 50);">return</span> <span class="hljs-type" style="color: rgb(255, 198, 109);">Scaffold</span>(
+            appBar: <span class="hljs-type" style="color: rgb(255, 198, 109);">AppBar</span>(
+            title: <span class="hljs-type" style="color: rgb(255, 198, 109);">Text</span>(<span class="hljs-symbol" style="color: rgb(104, 151, 187);">'Form</span> <span class="hljs-type" style="color: rgb(255, 198, 109);">Kontak</span>'),
+            ),
+            body: <span class="hljs-type" style="color: rgb(255, 198, 109);">ListView</span>(
+            padding: <span class="hljs-type" style="color: rgb(255, 198, 109);">EdgeInsets</span>.all(<span class="hljs-number" style="color: rgb(104, 151, 187);">16.0</span>),
+            children: [
+                <span class="hljs-type" style="color: rgb(255, 198, 109);">Padding</span>(
+                padding: const <span class="hljs-type" style="color: rgb(255, 198, 109);">EdgeInsets</span>.only(
+                    top: <span class="hljs-number" style="color: rgb(104, 151, 187);">20</span>,
+                ),
+                child: <span class="hljs-type" style="color: rgb(255, 198, 109);">TextField</span>(
+                    controller: name,
+                    decoration: <span class="hljs-type" style="color: rgb(255, 198, 109);">InputDecoration</span>(
+                        labelText: <span class="hljs-symbol" style="color: rgb(104, 151, 187);">'Nam</span>e',
+                        border: <span class="hljs-type" style="color: rgb(255, 198, 109);">OutlineInputBorder</span>(
+                        borderRadius: <span class="hljs-type" style="color: rgb(255, 198, 109);">BorderRadius</span>.circular(<span class="hljs-number" style="color: rgb(104, 151, 187);">8</span>),
+                        )),
+                ),
+                ),
+                <span class="hljs-type" style="color: rgb(255, 198, 109);">Padding</span>(
+                padding: const <span class="hljs-type" style="color: rgb(255, 198, 109);">EdgeInsets</span>.only(
+                    top: <span class="hljs-number" style="color: rgb(104, 151, 187);">20</span>,
+                ),
+                child: <span class="hljs-type" style="color: rgb(255, 198, 109);">TextField</span>(
+                    controller: mobileNo,
+                    decoration: <span class="hljs-type" style="color: rgb(255, 198, 109);">InputDecoration</span>(
+                        labelText: <span class="hljs-symbol" style="color: rgb(104, 151, 187);">'Mobile</span> <span class="hljs-type" style="color: rgb(255, 198, 109);">No</span>',
+                        border: <span class="hljs-type" style="color: rgb(255, 198, 109);">OutlineInputBorder</span>(
+                        borderRadius: <span class="hljs-type" style="color: rgb(255, 198, 109);">BorderRadius</span>.circular(<span class="hljs-number" style="color: rgb(104, 151, 187);">8</span>),
+                        )),
+                ),
+                ),
+                <span class="hljs-type" style="color: rgb(255, 198, 109);">Padding</span>(
+                padding: const <span class="hljs-type" style="color: rgb(255, 198, 109);">EdgeInsets</span>.only(
+                    top: <span class="hljs-number" style="color: rgb(104, 151, 187);">20</span>,
+                ),
+                child: <span class="hljs-type" style="color: rgb(255, 198, 109);">TextField</span>(
+                    controller: email,
+                    decoration: <span class="hljs-type" style="color: rgb(255, 198, 109);">InputDecoration</span>(
+                        labelText: <span class="hljs-symbol" style="color: rgb(104, 151, 187);">'Emai</span>l',
+                        border: <span class="hljs-type" style="color: rgb(255, 198, 109);">OutlineInputBorder</span>(
+                        borderRadius: <span class="hljs-type" style="color: rgb(255, 198, 109);">BorderRadius</span>.circular(<span class="hljs-number" style="color: rgb(104, 151, 187);">8</span>),
+                        )),
+                ),
+                ),
+                <span class="hljs-type" style="color: rgb(255, 198, 109);">Padding</span>(
+                padding: const <span class="hljs-type" style="color: rgb(255, 198, 109);">EdgeInsets</span>.only(
+                    top: <span class="hljs-number" style="color: rgb(104, 151, 187);">20</span>,
+                ),
+                child: <span class="hljs-type" style="color: rgb(255, 198, 109);">TextField</span>(
+                    controller: company,
+                    decoration: <span class="hljs-type" style="color: rgb(255, 198, 109);">InputDecoration</span>(
+                        labelText: <span class="hljs-symbol" style="color: rgb(104, 151, 187);">'Compan</span>y',
+                        border: <span class="hljs-type" style="color: rgb(255, 198, 109);">OutlineInputBorder</span>(
+                        borderRadius: <span class="hljs-type" style="color: rgb(255, 198, 109);">BorderRadius</span>.circular(<span class="hljs-number" style="color: rgb(104, 151, 187);">8</span>),
+                        )),
+                ),
+                ),
+                <span class="hljs-type" style="color: rgb(255, 198, 109);">Padding</span>(
+                padding: const <span class="hljs-type" style="color: rgb(255, 198, 109);">EdgeInsets</span>.only(
+                    top: <span class="hljs-number" style="color: rgb(104, 151, 187);">20</span>
+                ),
+                child: <span class="hljs-type" style="color: rgb(255, 198, 109);">ElevatedButton</span>(
+                    child: (widget.kontak == <span class="hljs-literal" style="color: rgb(104, 151, 187);">null</span>)
+                        ? <span class="hljs-type" style="color: rgb(255, 198, 109);">Text</span>(
+                            <span class="hljs-symbol" style="color: rgb(104, 151, 187);">'Ad</span>d',
+                            style: <span class="hljs-type" style="color: rgb(255, 198, 109);">TextStyle</span>(color: <span class="hljs-type" style="color: rgb(255, 198, 109);">Colors</span>.white),
+                        )
+                        : <span class="hljs-type" style="color: rgb(255, 198, 109);">Text</span>(
+                            <span class="hljs-symbol" style="color: rgb(104, 151, 187);">'Updat</span>e',
+                            style: <span class="hljs-type" style="color: rgb(255, 198, 109);">TextStyle</span>(color: <span class="hljs-type" style="color: rgb(255, 198, 109);">Colors</span>.white),
+                        ),
+                    onPressed: () {
+                    upsertKontak();
+                    },
+                ),
+                )
+            ],
+            ),
+        );
+        }
+    
+        <span class="hljs-type" style="color: rgb(255, 198, 109);">Future</span>&lt;void&gt; upsertKontak() async {
+        <span class="hljs-keyword" style="color: rgb(204, 120, 50);">if</span> (widget.kontak != <span class="hljs-literal" style="color: rgb(104, 151, 187);">null</span>) {
+            <span class="hljs-comment" style="color: grey;">//update</span>
+            await db.updateKontak(<span class="hljs-type" style="color: rgb(255, 198, 109);">Kontak</span>.fromMap({
+            <span class="hljs-symbol" style="color: rgb(104, 151, 187);">'i</span>d' : widget.kontak!.id,
+            <span class="hljs-symbol" style="color: rgb(104, 151, 187);">'nam</span>e' : name!.text,
+            <span class="hljs-symbol" style="color: rgb(104, 151, 187);">'mobileN</span>o' : mobileNo!.text,
+            <span class="hljs-symbol" style="color: rgb(104, 151, 187);">'emai</span>l' : email!.text,
+            <span class="hljs-symbol" style="color: rgb(104, 151, 187);">'compan</span>y' : company!.text
+            }));
+            <span class="hljs-type" style="color: rgb(255, 198, 109);">Navigator</span>.pop(context, <span class="hljs-symbol" style="color: rgb(104, 151, 187);">'updat</span>e');
+        } <span class="hljs-keyword" style="color: rgb(204, 120, 50);">else</span> {
+            <span class="hljs-comment" style="color: grey;">//insert</span>
+            await db.saveKontak(<span class="hljs-type" style="color: rgb(255, 198, 109);">Kontak</span>(
+            name: name!.text,
+            mobileNo: mobileNo!.text,
+            email: email!.text,
+            company: company!.text,
+            ));
+            <span class="hljs-type" style="color: rgb(255, 198, 109);">Navigator</span>.pop(context, <span class="hljs-symbol" style="color: rgb(104, 151, 187);">'sav</span>e');
+        }
+        }
+    }</pre>
